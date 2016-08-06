@@ -2,6 +2,9 @@
 
 namespace kmergen\location\controllers;
 
+use Yii;
+use kmergen\location\models\LocationSearch;
+
 class AdminController extends \yii\web\Controller
 {
    /**
