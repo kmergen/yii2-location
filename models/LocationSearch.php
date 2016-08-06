@@ -2,6 +2,7 @@
 
 namespace kmergen\location\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use kmergen\location\models\Location;
@@ -11,7 +12,6 @@ use kmergen\location\models\Location;
  */
 class LocationSearch extends Location
 {
-
     /**
      * @inheritdoc
      */
@@ -19,8 +19,8 @@ class LocationSearch extends Location
     {
         return [
             [['id'], 'integer'],
-            [['latitude', 'longitude'], 'number'],
             [['street', 'postcode', 'city', 'state', 'country'], 'safe'],
+            [['latitude', 'longitude'], 'number'],
         ];
     }
 
@@ -61,6 +61,8 @@ class LocationSearch extends Location
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
         ]);
 
         $query->andFilterWhere(['like', 'street', $this->street])
@@ -71,5 +73,4 @@ class LocationSearch extends Location
 
         return $dataProvider;
     }
-
 }
