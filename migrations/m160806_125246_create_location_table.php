@@ -21,10 +21,10 @@ class m160806_125246_create_location_table extends Migration
         $this->createTable('location', [
             'id' => $this->primaryKey(),
             'street' => $this->string(),
-            'postcode' => $this->string(),
-            'city' => $this->string()->notNull,
+            'postcode' => $this->string(10),
+            'city' => $this->string()->notNull(),
             'state' => $this->string(),
-            'country' => $this->string()->notNull,
+            'country' => $this->string()->notNull(),
             'latitude' => $this->decimal(10,6),
             'longitude' => $this->decimal(10,6),
         ], $tableOptions);

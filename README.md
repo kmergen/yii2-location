@@ -16,7 +16,7 @@ to the `require` section of your `composer.json` file.
 ## Installation
 
 ### 1. Run Migrations
-Run `$ yii migrate migrationPath=@vendor/kmergen/yii2-locaton/migrations`
+Run `$ yii migrate --migrationPath=@vendor/kmergen/yii2-location/migrations`
 
 # Use Yii2-location with Yii2 basic template
 
