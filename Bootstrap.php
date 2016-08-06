@@ -27,7 +27,7 @@ class Bootstrap implements BootstrapInterface
     {
         if ($app->hasModule('location') && ($module = $app->getModule('location')) instanceof Module) {
 
-            $app->get('i18n')->translations['location*'] = [
+            $app->get('i18n')->translations['loc*'] = [
                 'class' => PhpMessageSource::className(),
                 'basePath' => __DIR__ . '/messages',
             ];

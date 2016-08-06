@@ -45,14 +45,14 @@ class Location extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('location', 'ID'),
-            'street' => Yii::t('location', 'Street'),
-            'postcode' => Yii::t('location', 'Postcode'),
-            'city' => Yii::t('location', 'City'),
-            'state' => Yii::t('location', 'State'),
-            'country' => Yii::t('location', 'Country'),
-            'latitude' => Yii::t('location', 'Latitude'),
-            'longitude' => Yii::t('location', 'Longitude'),
+            'id' => Yii::t('loc', 'ID'),
+            'street' => Yii::t('loc', 'Street'),
+            'postcode' => Yii::t('loc', 'Postcode'),
+            'city' => Yii::t('loc', 'City'),
+            'state' => Yii::t('loc', 'State'),
+            'country' => Yii::t('loc', 'Country'),
+            'latitude' => Yii::t('loc', 'Latitude'),
+            'longitude' => Yii::t('loc', 'Longitude'),
         ];
     }
 
