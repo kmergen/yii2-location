@@ -1,0 +1,22 @@
+{
+    "name": "kmergen/yii2-location",
+    "description": "A Yii2 extension for location and address management",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "keywords": ["yii", "yii2", "extension", "location", "address"],
+    "authors": [
+        {
+            "name": "Klaus Megen",
+            "email": "kmergenweb@gmail.com"
+
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "kmergen\\location\\": ""
+        }
+    },
+    "require": {
+        "yiisoft/yii2": "2.*"
+    }
+}
