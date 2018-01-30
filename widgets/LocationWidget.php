@@ -7,16 +7,37 @@ use kmergen\location\helpers\Geo;
 use yii\helpers\Html;
 
 /**
- * LocationWidget represents a address model (e.g. postcode, city, etc. for a given model
- * It renders the form elements for the address model
+ * LocationWidget represents a address model (e.g. postcode, city, etc. for a given location model instance
+ * It renders the form elements for the model
  * Use it in horizontal forms only together with ActiveForm
  */
 class LocationWidget extends Widget
 {
 
+    /**
+     * @var object The location model
+     */
     public $model;
+
+    /**
+     * @var object The form object (in most cases an ActiveForm instance)
+     */
     public $form;
+
+    /**
+     * @var string
+     */
     public $title = '';
+
+    /**
+     * @var string The formName of the model. This is the name which will use for creating the name of the input field.
+     * If you only have one location widget in your form you may not set it, but if you use multiple location widgets in one form you should set it.
+     * If you then set the [[formName]] for example to 'locationDelivery' then the name of the input field will be LocationDelivery[attributeName].
+     * If you set [[formName]] to '' than the formName is only the attribute name.
+     * If [[formName]] is null (default value) than the return value of the models formName() method is used to build the name of the input field. That is the common if
+     * you only have one location widget in your form.
+     */
+    public $formName;
 
     /**
      * The follwing classes are only for horizontal forms.
@@ -64,24 +85,26 @@ class LocationWidget extends Widget
      */
     protected function renderAddress()
     {
+
+
         $html = '';
-        
+
         if ($this->model->isAttributeActive('street')) {
-            $html .= $this->form->field($this->model, 'street')->textInput();
+            $html .= $this->form->field($this->model, 'street')->textInput(['name' => $this->getInputName('street')]);
         }
 
         if ($this->model->isAttributeActive('city')) {
             $html .= Html::beginTag('div', ['class' => 'row']);
-            $html .= $this->form->field($this->model, 'postcode', ['options' => ['class' => 'col-' . $this->colPrefix . '-4']])->textInput();
-            $html .= $this->form->field($this->model, 'city', ['options' => ['class' => 'col-' . $this->colPrefix . '-8']])->textInput();
+            $html .= $this->form->field($this->model, 'postcode', ['options' => ['class' => 'col-' . $this->colPrefix . '-4']])->textInput(['name' => $this->getInputName('postcode')]);
+            $html .= $this->form->field($this->model, 'city', ['options' => ['class' => 'col-' . $this->colPrefix . '-8']])->textInput(['name' => $this->getInputName('city')]);
             $html .= Html::endTag('div');
         }
 
         if ($this->model->isAttributeActive('state')) {
-            $html .= $this->form->field($this->model, 'state')->textInput();
+            $html .= $this->form->field($this->model, 'state')->textInput(['name' => $this->getInputName('state')]);
         }
         if ($this->model->isAttributeActive('country')) {
-            $html .= $this->form->field($this->model, 'country')->dropDownList(Geo::IsoCountryList());
+            $html .= $this->form->field($this->model, 'country')->dropDownList(Geo::IsoCountryList(), ['name' => $this->getInputName('country')]);
         }
 
         return $html;
@@ -93,11 +116,11 @@ class LocationWidget extends Widget
     protected function renderAddressHorizontal()
     {
         $html = '';
-        
+
         if ($this->model->isAttributeActive('street')) {
             $html .= $this->form->field($this->model, 'street')->textInput();
         }
-        
+
         if ($this->model->isAttributeActive('city')) {
 
             $required = ($this->model->isAttributeRequired('postcode') || $this->model->isAttributeRequired('house_no') ) ? ' required' : '';
@@ -153,6 +176,24 @@ class LocationWidget extends Widget
             }
         }
         return $label;
+    }
+
+    /**
+     * Create an input name for the given attribute
+     * 
+     * @param string the name of the attribute.
+     */
+    protected function getInputName($attribute)
+    {
+        $formName = $this->formName;
+        
+        if ($formName === null) {
+            return $this->model->formName() . "[$attribute]";
+        } elseif ($formName === '') {
+            return $attribute;
+        } else {
+            return $formName . "[$attribute]";
+        }
     }
 
 }
